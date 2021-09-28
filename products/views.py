@@ -1,6 +1,6 @@
 import django.shortcuts
 
-from products.models import Product
+from products.models import Product,ProductCategory
 from geekshop.settings import MEDIA_URL
 
 # Create your views here.
@@ -16,6 +16,7 @@ def products(request):
     context = {
         'img_dir': MEDIA_URL,
         'title': 'каталог',
+        'categories': ProductCategory.objects.all(),
         'products': Product.objects.all()
         # 'products': [
         #     {'name': 'Худи черного цвета с монограммами adidas Originals',
