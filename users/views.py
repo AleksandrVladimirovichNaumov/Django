@@ -47,3 +47,9 @@ def register(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+def profile(request):
+    context = {
+        'title': 'Профиль'
+    }
+    return render(request, 'users/profile.html', context)
