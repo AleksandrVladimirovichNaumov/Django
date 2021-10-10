@@ -4,11 +4,12 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
+
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from admins.forms import UserAdminRegisterForm, UserAdminProfileForm
+from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, CategoryCreateForm, CategoryUpdateForm
 from geekshop.mixin import CustomDispatchMixin
+from products.models import ProductCategory
 from users.models import User
 
 
@@ -16,15 +17,16 @@ def index(request):
     return render(request, 'admins/admin.html')
 
 
-class UserListView(ListView):
-    model=User
+class UserListView(ListView, CustomDispatchMixin):
+    model = User
     template_name = 'admins/admin-users-read.html'
     context_object_name = 'users'
 
-    def get_context_data(self,  *, object_list = None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserListView, self).get_context_data(**kwargs)
-        context['title']= 'Панель Админимтратора | Пользователи'
+        context['title'] = 'Панель Администратора | Пользователи'
         return context
+
 
 class UserCreateView(CreateView, CustomDispatchMixin):
     model = User
@@ -32,10 +34,11 @@ class UserCreateView(CreateView, CustomDispatchMixin):
     form_class = UserAdminRegisterForm
     success_url = reverse_lazy('admins:admins_user')
 
-    def get_context_data(self,  *, object_list = None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserCreateView, self).get_context_data(**kwargs)
-        context['title']= 'Панель Админимтратора | Регистрация'
+        context['title'] = 'Панель Администратора | Регистрация'
         return context
+
 
 class UserUpdateView(UpdateView, CustomDispatchMixin):
     model = User
@@ -43,16 +46,65 @@ class UserUpdateView(UpdateView, CustomDispatchMixin):
     form_class = UserAdminProfileForm
     success_url = reverse_lazy('admins:admins_user')
 
-    def get_context_data(self,  *, object_list = None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserUpdateView, self).get_context_data(**kwargs)
-        context['title']= 'Панель Админимтратора | Обновление пользователя'
+        context['title'] = 'Панель Администратора | Обновление пользователя'
         return context
+
 
 class UserDeleteView(DeleteView, CustomDispatchMixin):
     model = User
     template_name = 'admins/admin-users-read.html'
     success_url = reverse_lazy('admins:admins_user')
 
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = False
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class CategoryListView(ListView, CustomDispatchMixin):
+    model = ProductCategory
+    template_name = 'admins/admin-categories-read.html'
+    context_object_name = 'categories'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        context['title'] = 'Панель Администратора | Категории'
+        return context
+
+
+class CategoryCreateView(CreateView, CustomDispatchMixin):
+    model = ProductCategory
+    template_name = 'admins/admin-categories-create.html'
+    form_class = CategoryCreateForm
+    success_url = reverse_lazy('admins:admins_category')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryCreateView, self).get_context_data(**kwargs)
+        context['title'] = 'Панель Администратора | Добавление категории'
+        return context
+
+
+
+class CategoryUpdateView(UpdateView, CustomDispatchMixin):
+    model = ProductCategory
+    template_name = 'admins/admin-categories-update-delete.html'
+    form_class = CategoryUpdateForm
+    success_url = reverse_lazy('admins:admins_category')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(CategoryUpdateView, self).get_context_data(**kwargs)
+        context['title'] = 'Панель Админимтратора | Обновление категории'
+        print(context)
+        return context
+
+
+class CategoryDeleteView(DeleteView, CustomDispatchMixin):
+    model = User
+    template_name = 'admins/admin-categories-read.html'
+    success_url = reverse_lazy('admins:admins_category')
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
