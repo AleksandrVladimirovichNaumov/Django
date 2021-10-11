@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from django.urls import reverse_lazy
@@ -87,7 +87,6 @@ class CategoryCreateView(CreateView, CustomDispatchMixin):
         return context
 
 
-
 class CategoryUpdateView(UpdateView, CustomDispatchMixin):
     model = ProductCategory
     template_name = 'admins/admin-categories-update-delete.html'
@@ -97,8 +96,17 @@ class CategoryUpdateView(UpdateView, CustomDispatchMixin):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Панель Админимтратора | Обновление категории'
-        print(context)
         return context
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(ProductCategory, pk=self.request.productcategory.pk)
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(data=request.POST, files=request.FILES, instance=self.get_object())
+        if form.is_valid():
+            form.save()
+            return redirect(self.success_url)
+        return redirect(self.success_url)
 
 
 class CategoryDeleteView(DeleteView, CustomDispatchMixin):
