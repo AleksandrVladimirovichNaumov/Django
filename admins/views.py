@@ -90,23 +90,16 @@ class CategoryCreateView(CreateView, CustomDispatchMixin):
 class CategoryUpdateView(UpdateView, CustomDispatchMixin):
     model = ProductCategory
     template_name = 'admins/admin-categories-update-delete.html'
-    form_class = CategoryUpdateForm
+    from_class = CategoryUpdateForm
+    context_object_name = 'category'
+    fields = '__all__'
     success_url = reverse_lazy('admins:admins_category')
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super(CategoryUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Панель Админимтратора | Обновление категории'
         return context
 
-    def get_object(self, queryset=None):
-        return get_object_or_404(ProductCategory, pk=self.request.productcategory.pk)
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(data=request.POST, files=request.FILES, instance=self.get_object())
-        if form.is_valid():
-            form.save()
-            return redirect(self.success_url)
-        return redirect(self.success_url)
 
 
 class CategoryDeleteView(DeleteView, CustomDispatchMixin):
