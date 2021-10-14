@@ -50,6 +50,7 @@ class UserUpdateView(UpdateView, CustomDispatchMixin):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(UserUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Панель Администратора | Обновление пользователя'
+        print(context)
         return context
 
 
