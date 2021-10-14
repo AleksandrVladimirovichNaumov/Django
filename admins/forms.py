@@ -77,3 +77,22 @@ class CreateAdminProductForm(forms.ModelForm):
                 field.widget.attrs['class'] = 'form-control'
             else:
                 field.widget.attrs['class'] = 'form-control py-4'
+
+class ProductAdminUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(ProductAdminUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['placeholder'] = 'name'
+        self.fields['category'].widget.attrs['placeholder'] = 'category'
+        self.fields['description'].widget.attrs['placeholder'] = 'description'
+        self.fields['price'].widget.attrs['placeholder'] = 'price'
+        self.fields['quantity'].widget.attrs['placeholder'] = 'quantity'
+        for field_name, field in self.fields.items():
+            if field_name == 'image':
+                field.widget.attrs['class'] = 'form-control'
+            else:
+                field.widget.attrs['class'] = 'form-control py-4'

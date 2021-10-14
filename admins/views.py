@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, CategoryAdminCreateForm, CategoryAdminUpdateForm, \
-    CreateAdminProductForm
+    CreateAdminProductForm, ProductAdminUpdateForm
 from geekshop.mixin import CustomDispatchMixin
 from products.models import ProductCategory, Product
 from users.models import User
@@ -140,3 +140,30 @@ class ProductCreateView(CreateView, CustomDispatchMixin):
         context['title'] = 'Панель Администратора | Добавление продукта'
         return context
 
+class ProductUpdateView(UpdateView, CustomDispatchMixin):
+    model = Product
+    template_name = 'admins/admin-product-update-delete.html'
+    from_class = ProductAdminUpdateForm
+    context_object_name = 'product'
+    fields = ('name', 'description', 'quantity', 'price', 'category', 'image')
+    success_url = reverse_lazy('admins:admins_product')
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductUpdateView, self).get_context_data(**kwargs)
+        context['title'] = 'Панель Админимтратора | Обновление продукта'
+        return context
+
+
+class ProductDeleteView(DeleteView, CustomDispatchMixin):
+    model = Product
+    template_name = 'admins/admin-products-read.html'
+    context_object_name = 'product'
+
+    fields = '__all__'
+    success_url = reverse_lazy('admins:admins_product')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.is_active = not self.object.is_active
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
