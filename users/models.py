@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 from django.utils.timezone import now
 
-
+NULL_INSTALL = {'null':True, 'blank':True}
 class User(AbstractUser):
     image = models.ImageField(upload_to='users_image', blank=True)
 
