@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from users.forms import UserRegisterForm, UserProfileForm
 from users.models import User
-from products.models import ProductCategory
+from products.models import ProductCategory, Product
 
 
 class UserAdminRegisterForm(UserRegisterForm):
@@ -56,3 +56,24 @@ class CategoryAdminUpdateForm(forms.ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = 'description'
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
+
+class CreateAdminProductForm(forms.ModelForm):
+
+    image = forms.ImageField(widget=forms.FileInput, required=False)
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+    def __init__(self,*args, **kwargs):
+        super(CreateAdminProductForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['placeholder'] = 'name'
+        self.fields['category'].widget.attrs['placeholder'] = 'category'
+        self.fields['description'].widget.attrs['placeholder'] = 'description'
+        self.fields['price'].widget.attrs['placeholder'] = 'price'
+        self.fields['quantity'].widget.attrs['placeholder'] = 'quantity'
+        for field_name, field in self.fields.items():
+            if field_name == 'image':
+                field.widget.attrs['class'] = 'form-control'
+            else:
+                field.widget.attrs['class'] = 'form-control py-4'

@@ -7,9 +7,10 @@ from django.urls import reverse_lazy
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, CategoryAdminCreateForm, CategoryAdminUpdateForm
+from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, CategoryAdminCreateForm, CategoryAdminUpdateForm, \
+    CreateAdminProductForm
 from geekshop.mixin import CustomDispatchMixin
-from products.models import ProductCategory
+from products.models import ProductCategory, Product
 from users.models import User
 
 
@@ -115,4 +116,27 @@ class CategoryDeleteView(DeleteView, CustomDispatchMixin):
         self.object.is_active = not self.object.is_active
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+class ProductListView(ListView, CustomDispatchMixin):
+    model = Product
+    template_name = 'admins/admin-products-read.html'
+    context_object_name = 'products'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProductListView, self).get_context_data(**kwargs)
+        context['title'] = 'Панель Администратора | Продукты'
+        return context
+
+
+class ProductCreateView(CreateView, CustomDispatchMixin):
+    model = Product
+    template_name = 'admins/admin-products-create.html'
+    form_class = CreateAdminProductForm
+    success_url = reverse_lazy('admins:admins_product')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProductCreateView, self).get_context_data(**kwargs)
+        context['title'] = 'Панель Администратора | Добавление продукта'
+        return context
 
