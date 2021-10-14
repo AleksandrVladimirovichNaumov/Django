@@ -31,27 +31,27 @@ class UserAdminProfileForm(UserProfileForm):
         self.fields['email'].widget.attrs['readonly'] = False
 
 
-class CategoryCreateForm(forms.ModelForm):
+class CategoryAdminCreateForm(forms.ModelForm):
 
     class Meta:
         model = ProductCategory
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(CategoryCreateForm, self).__init__(*args, **kwargs)
+        super(CategoryAdminCreateForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['placeholder'] = 'Введите название категории'
         self.fields['description'].widget.attrs['placeholder'] = 'Введите описание категории'
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
-class CategoryUpdateForm(forms.ModelForm):
+class CategoryAdminUpdateForm(forms.ModelForm):
 
     class Meta:
         model = ProductCategory
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(CategoryUpdateForm, self).__init__(*args, **kwargs)
+        super(CategoryAdminUpdateForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['placeholder'] = 'name'
         self.fields['description'].widget.attrs['placeholder'] = 'description'
         for field_name, field in self.fields.items():

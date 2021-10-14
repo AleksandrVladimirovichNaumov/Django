@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, CategoryCreateForm, CategoryUpdateForm
+from admins.forms import UserAdminRegisterForm, UserAdminProfileForm, CategoryAdminCreateForm, CategoryAdminUpdateForm
 from geekshop.mixin import CustomDispatchMixin
 from products.models import ProductCategory
 from users.models import User
@@ -78,7 +78,7 @@ class CategoryListView(ListView, CustomDispatchMixin):
 class CategoryCreateView(CreateView, CustomDispatchMixin):
     model = ProductCategory
     template_name = 'admins/admin-categories-create.html'
-    form_class = CategoryCreateForm
+    form_class = CategoryAdminCreateForm
     success_url = reverse_lazy('admins:admins_category')
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -90,9 +90,9 @@ class CategoryCreateView(CreateView, CustomDispatchMixin):
 class CategoryUpdateView(UpdateView, CustomDispatchMixin):
     model = ProductCategory
     template_name = 'admins/admin-categories-update-delete.html'
-    from_class = CategoryUpdateForm
+    from_class = CategoryAdminUpdateForm
     context_object_name = 'category'
-    fields = '__all__'
+    fields = ('name', 'description')
     success_url = reverse_lazy('admins:admins_category')
 
     def get_context_data(self, **kwargs):
@@ -103,7 +103,7 @@ class CategoryUpdateView(UpdateView, CustomDispatchMixin):
 
 
 class CategoryDeleteView(DeleteView, CustomDispatchMixin):
-    model = User
+    model = ProductCategory
     template_name = 'admins/admin-categories-read.html'
     context_object_name = 'category'
 
