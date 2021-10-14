@@ -49,7 +49,7 @@ class UserProfileForm(UserChangeForm):
             field.widget.attrs['class'] = 'form-control py-4'
             self.fields['image'].widget.attrs['class'] = 'custom-file-input'
 
-    def clean_image(self):
-        data = self.cleaned_data['image']
-        if data.size > 102410241024:
-            raise forms.ValidationError('Файл велик')
+    # def clean_image(self):
+    #     data = self.cleaned_data['image']
+    #     if data.size > 102410241024:
+    #         raise forms.ValidationError('Файл велик')
