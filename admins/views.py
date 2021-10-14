@@ -59,7 +59,7 @@ class UserDeleteView(DeleteView, CustomDispatchMixin):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        self.object.is_active = False
+        self.object.is_active = not self.object.is_active
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
@@ -105,10 +105,14 @@ class CategoryUpdateView(UpdateView, CustomDispatchMixin):
 class CategoryDeleteView(DeleteView, CustomDispatchMixin):
     model = User
     template_name = 'admins/admin-categories-read.html'
+    context_object_name = 'category'
+
+    fields = '__all__'
     success_url = reverse_lazy('admins:admins_category')
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        self.object.is_active = False
+        self.object.is_active = not self.object.is_active
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+

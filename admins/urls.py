@@ -17,4 +17,5 @@ urlpatterns = [
     path('category-create/', CategoryCreateView.as_view(), name='admins_category_create'),
     path('category-update/<int:pk>/', CategoryUpdateView.as_view(), name='admins_category_update'),
     path('category-delete/<int:pk>/', CategoryDeleteView.as_view(), name='admins_category_delete'),
+
 ]
