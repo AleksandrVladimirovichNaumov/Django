@@ -1,3 +1,4 @@
+import requests
 from django import template
 
 from baskets.models import Basket
@@ -13,3 +14,4 @@ def total_quantity(value, user):
 @register.filter(name='total_sum')
 def total_sum(value, user):
     return Basket.total_sum(user)
+
