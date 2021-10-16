@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'products.context_processors.basket',
             ],
         },
     },
@@ -145,7 +146,7 @@ EMAIL_USER_SSL = True if os.getenv('EMAIL_USER_SSL') == 'True' else False
 # EMAIL_FILE_PATH = 'tmp/emails'
 
 EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
-#python -m smtpd -n -c DebuggingServer localhost:25
+# python -m smtpd -n -c DebuggingServer localhost:25
 
 # yandex
 # DOMAIN_NAME = 'http://localhost:8000'
