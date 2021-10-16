@@ -27,10 +27,10 @@ class Basket(models.Model):
         return sum(basket.quantity for basket in baskets)
 
 
-    def total_sum_qnty(request):
-        total_sum = 0
-        total_qnty = 0
-        for basket in Basket.objects.filter(user=request.user):
-            total_sum += basket.sum()
-            total_qnty += basket.quantity
-        return total_sum, total_qnty
+    # def total_sum_qnty(request):
+    #     total_sum = 0
+    #     total_qnty = 0
+    #     for basket in Basket.objects.filter(user=request.user):
+    #         total_sum += basket.sum()
+    #         total_qnty += basket.quantity
+    #     return total_sum, total_qnty
