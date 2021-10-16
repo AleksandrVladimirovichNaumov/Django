@@ -13,8 +13,8 @@ class User(AbstractUser):
 
     age = models.PositiveIntegerField(default=18)
 
-    activation_key = models.CharField(max_length=128, blank=True, null=True)
-    # activate_key_created = models.DateTimeField(default=(now()+timedelta(hours=48)))
+    activation_key = models.CharField(max_length=128, **NULL_INSTALL)
+
     activation_key_created = models.DateTimeField(auto_now_add=True, **NULL_INSTALL)
 
     def us_activation_key_expired(self):
