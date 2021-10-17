@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'users',
     'baskets',
     'admins',
+    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -155,3 +156,15 @@ EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
 # EMAIL_HOST_USER = 'Ваша почта'
 # EMAIL_HOST_PASSWORD = 'Ваш пароль'
 # EMAIL_USER_SSL = True
+
+
+# 7977243
+# G6X5qEbhtP8C8WuEjNip
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '7977243'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'G6X5qEbhtP8C8WuEjNip'
+SOCIAL_AUTH_VK_OAUTH2_API_VERSION = '5.131'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.vk.VKOAuth2',
+)
