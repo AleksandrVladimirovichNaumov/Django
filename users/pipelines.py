@@ -47,6 +47,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
 
     if data['personal']['langs']:
         print(data['personal']['langs'])
+        user.userprofile.language = ''
         for language in data['personal']['langs']:
             user.userprofile.language += f'{language}\n'
 
