@@ -11,15 +11,34 @@ class Basket(models.Model):
     update_timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'Корзина {self.user.name} | Продукт {self.product.name}'
+        return f'Корзина {self.user.username} | Продукт {self.product.name}'
 
     def sum(self):
         return self.quantity * self.product.price
 
-    def total_sum_qnty(request):
-        total_sum = 0
-        total_qnty = 0
-        for basket in Basket.objects.filter(user=request.user):
-            total_sum += basket.sum()
-            total_qnty += basket.quantity
-        return total_sum, total_qnty
+    # @staticmethod
+    # def total_sum(self):
+    #     baskets=Basket.objects.filter(user=self.user)
+    #     return sum(basket.sum() for basket in baskets)
+    #
+    # @staticmethod
+    # def total_quantity(self):
+    #     baskets=Basket.objects.filter(self.user)
+    #     return sum(basket.quantity for basket in baskets)
+
+    def total_quantity(self):
+        baskets = Basket.objects.filter(user=self.user)
+        return sum(basket.quantity for basket in baskets)
+
+    def total_sum(self):
+        baskets = Basket.objects.filter(user=self.user)
+        return sum(basket.sum() for basket in baskets)
+
+
+    # def total_sum_qnty(request):
+    #     total_sum = 0
+    #     total_qnty = 0
+    #     for basket in Basket.objects.filter(user=request.user):
+    #         total_sum += basket.sum()
+    #         total_qnty += basket.quantity
+    #     return total_sum, total_qnty
