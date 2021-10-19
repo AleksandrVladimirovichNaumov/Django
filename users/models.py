@@ -40,6 +40,7 @@ class UserProfile(models.Model):
     about = models.TextField(verbose_name='о себе', blank=True, null=True)
     gender = models.CharField(verbose_name='пол', choices=GENDER_CHOICES, blank=True, max_length=5)
     language = models.TextField(verbose_name='язык(и)',  blank=True, null=True)
+    photo = models.CharField(verbose_name='аватар_100', choices=GENDER_CHOICES, blank=True, max_length=256)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
