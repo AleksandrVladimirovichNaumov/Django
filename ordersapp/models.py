@@ -21,25 +21,32 @@ class Order(models.Model):
         (CANCEL, 'заказ отменен'),
     )
 
-
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(verbose_name='создан', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='обновлен', auto_now=True)
     status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name='статус', max_length=3, default=FORMING)
+    is_active = models.BooleanField(verbose_name='активный', default=True)
 
     def __str__(self):
-        return  f'Текущий заказ {self.pk}'
+        return f'Текущий заказ {self.pk}'
 
     def get_total_quantity(self):
         items = self.order_item.select_related()
-        return  sum(list(map(lambda x: x.quantity, items)))
+        return sum(list(map(lambda x: x.quantity, items)))
 
     def get_total_cost(self):
         items = self.order_item.select_related()
-        return  sum(list(map(lambda x: x.get_product_cost, items)))
+        return sum(list(map(lambda x: x.get_product_cost(), items)))
 
     def get_items(self):
         pass
+
+    def delete(self, using=None, keep_parents=False):
+        for item in self.order_item.select_related():
+            item.product.quantity += item.quantity
+        self.is_active = False
+        self.save()
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, verbose_name='заказ', related_name='order_item', on_delete=models.CASCADE)
