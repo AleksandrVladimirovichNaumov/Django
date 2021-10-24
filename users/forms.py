@@ -4,11 +4,10 @@ import random
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
-from users.models import User
+from users.models import User, UserProfile
 
 
 class UserLoginForm(AuthenticationForm):
-
     class Meta:
         model = User
         fields = ('username', 'password')
@@ -20,8 +19,8 @@ class UserLoginForm(AuthenticationForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
-class UserRegisterForm(UserCreationForm):
 
+class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2',)
@@ -45,16 +44,17 @@ class UserRegisterForm(UserCreationForm):
         user.save()
         return user
 
-class UserProfileForm(UserChangeForm):
 
+class UserProfileForm(UserChangeForm):
     image = forms.ImageField(widget=forms.FileInput(), required=False)
+
     class Meta:
-        model=User
+        model = User
         fields = ('username', 'email', 'age', 'first_name', 'last_name', 'image')
 
-    def __init__(self, *args,**kwargs):
+    def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs['readonly']=True
+        self.fields['username'].widget.attrs['readonly'] = True
         self.fields['email'].widget.attrs['readonly'] = True
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control py-4'
@@ -64,3 +64,19 @@ class UserProfileForm(UserChangeForm):
     #     data = self.cleaned_data['image']
     #     if data.size > 102410241024:
     #         raise forms.ValidationError('Файл велик')
+
+
+class UserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('tagline', 'about', 'gender', 'language')
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileEditForm, self).__init__(*args, **kwargs)
+
+        for field_name, field in self.fields.items():
+            if field_name != 'gender':
+                field.widget.attrs['class'] = 'form-control py-4'
+            else:
+                field.widget.attrs['class'] = 'form-control'
+
