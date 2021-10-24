@@ -40,11 +40,18 @@ class ProductsListView(ListView):
         return context
 
 
-def index(request):
-    context = {
-        'title': 'geekshop'
-    }
-    return django.shortcuts.render(request, 'products/index.html', context)
+class ProductsIndex(ListView):
+    model = Product
+    title = 'Каталог'
+    template_name = 'products/index.html'
+#
+#
+#
+# def index(request):
+#     context = {
+#         'title': 'geekshop'
+#     }
+#     return django.shortcuts.render(request, 'products/index.html', context)
 
 
 # def products(request, category_id=None, page_id=1):
