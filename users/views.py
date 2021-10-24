@@ -148,7 +148,7 @@ class ProfileFormView(UpdateView, BaseClassContextMixin, LoginRequiredMixin):
 
 
 def verify(request, email, activation_key):
-    try:
+    # try:
         user = User.objects.get(email=email)
         if user and user.activation_key == activation_key and not user.is_activation_key_expired():
             user.activation_key = ''
@@ -156,5 +156,5 @@ def verify(request, email, activation_key):
             user.is_active = True
             auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return render(request, 'users/verification.html')
-    except Exception as e:
-        return HttpResponseRedirect(reverse('index'))
+    # except Exception as e:
+    #     return HttpResponseRedirect(reverse('index'))
