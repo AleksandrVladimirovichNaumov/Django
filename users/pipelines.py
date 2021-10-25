@@ -43,7 +43,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
         user.delete()
         raise AuthForbidden('social_core.backends.vk.VKOAuth2')
 
-    user.save()
+
 
     if data['personal']['langs']:
         print(data['personal']['langs'])
@@ -53,3 +53,5 @@ def save_user_profile(backend, user, response, *args, **kwargs):
 
     if data['photo_100']:
         user.userprofile.photo = data['photo_100']
+
+    user.save()

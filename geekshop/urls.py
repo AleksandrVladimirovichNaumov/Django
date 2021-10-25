@@ -18,16 +18,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from products.views import index
+from products.views import  ProductsIndex
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
+    # path('', index, name='index'),
+    path('', ProductsIndex.as_view(), name='index'),
     path('products/', include('products.urls', namespace='products')),
     path('users/', include('users.urls', namespace='users')),
     path('baskets/', include('baskets.urls', namespace='baskets')),
     path('admins/', include('admins.urls', namespace='admins')),
     path('', include('social_django.urls', namespace='social')),
+    path('orders/', include('ordersapp.urls', namespace='orders')),
 
 ]
 
