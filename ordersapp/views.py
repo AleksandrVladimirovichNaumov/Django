@@ -73,7 +73,7 @@ class OrderUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderUpdate, self).get_context_data(**kwargs)
-        context['title'] = 'GeekShop | обновить заказ'
+        context['title'] = 'GeekShop | Обновление заказ'
 
         OrderFormSet = inlineformset_factory(Order, OrderItem, form=OrderItemsForm, extra=1)
 
@@ -83,13 +83,9 @@ class OrderUpdate(UpdateView):
             formset = OrderFormSet(instance=self.object)
             for form in formset:
                 if form.instance.pk:
-                    if form.instance.pk:
-                        form.initial['price'] = form.instance.product.price
-
+                    form.initial['price'] = form.instance.product.price
         context['order_items'] = formset
         return context
-
-
 
 
     def form_valid(self, form):
@@ -98,13 +94,13 @@ class OrderUpdate(UpdateView):
 
         with transaction.atomic():
             form.instance.user = self.request.user
+            self.object = form.save()
             if order_items.is_valid():
                 order_items.instance = self.object
                 order_items.save()
 
             if self.object.get_total_cost() == 0:
                 self.object.delete()
-
         return super(OrderUpdate, self).form_valid(form)
 
 

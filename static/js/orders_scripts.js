@@ -81,10 +81,14 @@ window.onload = function () {
 
     function deleteOrderItem(row) {
         let target_name = row[0].querySelector('input[type="number"]').name;
+        console.log(target_name)
         orderitem_num = parseInt(target_name.replace('order_item-', '').replace('-quantity', ''));
+        console.log(orderitem_num)
         delta_quantity = -quantity_arr[orderitem_num];
+        console.log(delta_quantity)
 
         orderSummerUpdate(price_arr[orderitem_num], delta_quantity);
+
     }
 
 }
