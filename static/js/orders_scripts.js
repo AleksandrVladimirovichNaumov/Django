@@ -28,8 +28,7 @@ window.onload = function () {
 
 
     $('.order_form').on('click', 'input[type=number]', function () {
-        console.info('PRICE', price_arr)
-        console.info('QUANTITY', quantity_arr)
+
         let target = event.target
         orderitem_num = parseInt(target.name.replace('order_item-', '').replace('-quantity', ''));
 
@@ -39,9 +38,12 @@ window.onload = function () {
             delta_quantity = order_item_quantity - quantity_arr[orderitem_num];
 
             quantity_arr[orderitem_num] = order_item_quantity
+            console.info('PRICE', price_arr)
+            console.info('QUANTITY', quantity_arr)
 
             orderSummerUpdate(price_arr[orderitem_num], delta_quantity)
         }
+
 
 
     })
@@ -85,7 +87,7 @@ window.onload = function () {
             success: function (data){
 
                     console.log(data.price);
-                    price_arr[orderitem_num]=data.price;
+                    price_arr[orderitem_num]=parseFloat(data.price);
                     console.log('<span class="order_items-' + orderitem_num + '-price">' + data.price.toString() + ' руб </span>');
                     let price_html = '<span class="order_items-' + orderitem_num + '-price">' + data.price.toString().replace('.', ',') + ' руб</span>';
 
@@ -102,7 +104,7 @@ window.onload = function () {
     $('.formset_row').formset({
         addText: 'добавить продукт',
         deleteText: 'удалить',
-        prefix: 'order_items',
+        prefix: 'order_item',
         removed: deleteOrderItem,
 
     })
