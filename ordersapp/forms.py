@@ -24,4 +24,10 @@ class OrderItemsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(OrderItemsForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+
+            if field_name == 'product':
+                field.widget.attrs['class'] = 'form-control'
+                field.widget.attrs['type'] = 'drop_list'
+                field.widget.attrs['value'] = self.instance.get_product_cost
+            else:
+                field.widget.attrs['class'] = 'form-control'

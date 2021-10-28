@@ -27,5 +27,6 @@ urlpatterns = [
     # path('page/<int:page_id>/', products, name='page'),
     path('page/<int:page_id>/', ProductsListView.as_view(), name='page'),
     path('category/<int:category_id>/page/<int:page_id>/', ProductsListView.as_view(), name='category_page'),
+    path('price/<int:pk>/', ProductsListView.get_price, name='price'),
 
 ]

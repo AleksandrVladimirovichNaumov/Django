@@ -1,4 +1,5 @@
 import django.shortcuts
+from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 
@@ -38,6 +39,9 @@ class ProductsListView(ListView):
             # делаем срез в зависимости от текущей страницы и шага пагинатора
             context['page_obj'].object_list = filtered_page_obj[context['page_obj'].number*self.paginate_by - self.paginate_by:self.paginate_by*context['page_obj'].number]
         return context
+
+    def get_price(self, pk):
+        return JsonResponse({'price': Product.objects.get(pk=pk).get_product_price()})
 
 
 class ProductsIndex(ListView):
