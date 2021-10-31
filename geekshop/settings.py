@@ -28,9 +28,9 @@ SECRET_KEY = 'django-insecure-^zu0@1(r9$3$$r9&be+30khrew#hxrq5qvn&mhptcjjzkk5w7s
 # SECURITY WARNING: don't run with debug turned on in production!
 
 # для проверки проверки возраста
-DEBUG = False
+# DEBUG = False
 
-# DEBUG = True
+DEBUG = True
 
 # для проверки проверки возраста
 # ALLOWED_HOSTS = ['127.0.0.1']
