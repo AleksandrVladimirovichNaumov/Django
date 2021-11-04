@@ -17,6 +17,7 @@ class ProductsListView(ListView):
     # Выводим по три объекта на страницу
     paginate_by = 3
 
+
     def get_context_data(self, **kwargs):
         context = super(ProductsListView, self).get_context_data(**kwargs)
         context['categories'] = ProductCategory.objects.all()
@@ -79,3 +80,4 @@ class ProductsIndex(ListView):
 #
 #     context.update({'products':products_paginator})
 #     return django.shortcuts.render(request, 'products/products.html', context)
+

@@ -11,6 +11,8 @@ from baskets.models import Basket
 
 @login_required
 def basket_add(request, product_id):
+
+
     user_select = request.user
     product = Product.objects.get(id=product_id)
     baskets = Basket.objects.filter(user=user_select, product=product)
