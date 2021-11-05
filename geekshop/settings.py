@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'ordersapp',
     'debug_toolbar',
     'template_profiler_panel',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -217,6 +218,8 @@ if DEBUG:
     import mimetypes
 
     mimetypes.add_type("application/javascript", ".js", True)
+
+
     def show_toolbar(request):
         return True
 
@@ -224,7 +227,7 @@ if DEBUG:
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
         'SHOW_TOOLBAR_CALLBACK': show_toolbar,
-        'INTERNAL_IPS' : ('127.0.0.1', '192.168.0.116', '10.0.2.2',),
+        'INTERNAL_IPS': ('127.0.0.1', '192.168.0.116', '10.0.2.2',),
 
     }
 
