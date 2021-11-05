@@ -34,7 +34,7 @@ class ProductsListView(ListView):
             context['current_category'] = self.kwargs.get('category_id')
             if self.kwargs.get('page_id'):
                 context['page_obj'].number = self.kwargs.get('page_id')
-            filtered_page_obj = self.object_list.filter(category_id=self.kwargs['category_id'])
+            filtered_page_obj = self.object_list.filter(category_id=self.kwargs['category_id']).select_related('category')
             context['page_quantity'] = range(1, len(filtered_page_obj) // self.paginate_by + 2)
             context['page_max'] = len(filtered_page_obj) // self.paginate_by + 1
             # делаем срез в зависимости от текущей страницы и шага пагинатора
