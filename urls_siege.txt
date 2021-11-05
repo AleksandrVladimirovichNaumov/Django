@@ -1,1 +1,1 @@
-http://194.58.107.78/auth/login/ POST username=Alex&password=1
+http://194.58.107.78/users/login/ POST username=Alex&password=1
