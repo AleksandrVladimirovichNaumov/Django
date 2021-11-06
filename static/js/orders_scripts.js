@@ -1,4 +1,4 @@
-window.onload = function () {
+window.addEventListener("load", function (evt){
 
     let _quantity, _price, orderitem_num, delta_quantity, order_item_quantity, delta_cost
 
@@ -121,4 +121,4 @@ window.onload = function () {
 
     }
 
-}
+})
