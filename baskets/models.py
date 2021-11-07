@@ -42,13 +42,13 @@ class Basket(models.Model):
     #     return sum(basket.quantity for basket in baskets)
 
     def total_quantity(self):
-        # baskets = Basket.objects.filter(user=self.user)
-        baskets = self.get_cache_item
+        baskets = Basket.objects.filter(user=self.user)
+        # baskets = self.get_cache_item
         return sum(basket.quantity for basket in baskets)
 
     def total_sum(self):
-        # baskets = Basket.objects.filter(user=self.user)
-        baskets = self.get_cache_item
+        baskets = Basket.objects.filter(user=self.user)
+        # baskets = self.get_cache_item
         return sum(basket.sum() for basket in baskets)
 
     # def total_sum_qnty(request):
