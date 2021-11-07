@@ -1,4 +1,6 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.db import connection
+from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -93,13 +95,21 @@ class CategoryUpdateView(UpdateView, CustomDispatchMixin):
     template_name = 'admins/admin-categories-update-delete.html'
     from_class = CategoryAdminUpdateForm
     context_object_name = 'category'
-    fields = ('name', 'description')
+    fields = ('name', 'description', 'discount')
     success_url = reverse_lazy('admins:admins_category')
 
     def get_context_data(self, **kwargs):
         context = super(CategoryUpdateView, self).get_context_data(**kwargs)
         context['title'] = 'Панель Админимтратора | Обновление категории'
         return context
+
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(price=F('price')*(1-discount/100))
+                # db_profile_by_type(self.__class__, 'update', connection.queries)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 

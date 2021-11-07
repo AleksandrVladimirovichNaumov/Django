@@ -24,7 +24,6 @@ class UserAdminRegisterForm(UserRegisterForm):
 
 class UserAdminProfileForm(UserProfileForm):
 
-
     def __init__(self, *args, **kwargs):
         super(UserAdminProfileForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['readonly'] = False
@@ -32,7 +31,6 @@ class UserAdminProfileForm(UserProfileForm):
 
 
 class CategoryAdminCreateForm(forms.ModelForm):
-
     class Meta:
         model = ProductCategory
         fields = '__all__'
@@ -44,7 +42,9 @@ class CategoryAdminCreateForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
+
 class CategoryAdminUpdateForm(forms.ModelForm):
+    discount = forms.IntegerField(widget=forms.NumberInput(), label='скидка', required=False, min_value=0, max_value=90)
 
     class Meta:
         model = ProductCategory
@@ -54,18 +54,19 @@ class CategoryAdminUpdateForm(forms.ModelForm):
         super(CategoryAdminUpdateForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['placeholder'] = 'name'
         self.fields['description'].widget.attrs['placeholder'] = 'description'
+        self.fields['discount'].widget.attrs['placeholder'] = 'discount'
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
-class CreateAdminProductForm(forms.ModelForm):
 
+class CreateAdminProductForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput, required=False)
 
     class Meta:
         model = Product
         fields = '__all__'
 
-    def __init__(self,*args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(CreateAdminProductForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['placeholder'] = 'name'
         self.fields['category'].widget.attrs['placeholder'] = 'category'
@@ -78,8 +79,8 @@ class CreateAdminProductForm(forms.ModelForm):
             else:
                 field.widget.attrs['class'] = 'form-control py-4'
 
-class ProductAdminUpdateForm(forms.ModelForm):
 
+class ProductAdminUpdateForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
