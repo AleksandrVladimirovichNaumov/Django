@@ -26,11 +26,11 @@ class ProductsListView(ListView):
             key = f'product{pk}'
             product = cache.get(key)
             if product is None:
-                product = get_object_or_404(Product, pk=pk)
+                product = Product.objects.get(pk=pk)
                 cache.set(key, product)
             return product
         else:
-            return get_object_or_404(Product, pk=pk)
+            return Product.objects.get(pk=pk)
 
     @staticmethod
     def get_links_category():
