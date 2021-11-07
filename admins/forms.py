@@ -52,9 +52,9 @@ class CategoryAdminUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CategoryAdminUpdateForm, self).__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs['placeholder'] = 'name'
-        self.fields['description'].widget.attrs['placeholder'] = 'description'
-        self.fields['discount'].widget.attrs['placeholder'] = 'discount'
+        # self.fields['name'].widget.attrs['placeholder'] = 'name'
+        # self.fields['description'].widget.attrs['placeholder'] = 'description'
+        # self.fields['discount'].widget.attrs['placeholder'] = 'discount'
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
