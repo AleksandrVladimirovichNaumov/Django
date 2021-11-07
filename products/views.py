@@ -6,6 +6,9 @@ from django.views.generic import ListView
 from products.models import Product, ProductCategory
 from geekshop.settings import MEDIA_URL
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
+from django.core.cache import cache
+
 
 
 # Create your views here.
@@ -17,10 +20,21 @@ class ProductsListView(ListView):
     # Выводим по три объекта на страницу
     paginate_by = 3
 
+    @staticmethod
+    def get_links_category():
+        if settings.LOW_CACHE:
+            key = 'links_category'
+            links_category = cache.get(key)
+            if links_category is None:
+                links_category = ProductCategory.objects.all()
+                cache.set(key, links_category)
+            return links_category
+        else:
+            return ProductCategory.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super(ProductsListView, self).get_context_data(**kwargs)
-        context['categories'] = ProductCategory.objects.all()
+        context['categories'] = self.get_links_category()
         context['page_quantity'] = range(1, len(self.object_list)//self.paginate_by+2)
         context['page_max'] = len(self.object_list)//self.paginate_by+1
         # флаг для првоерки отфильтрованы ли продукты по категории
