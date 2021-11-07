@@ -1,4 +1,5 @@
-window.onload = function (){
+// window.onload = function (){
+window.addEventListener("load", function (evt){
     $('.basket_list').on('click', 'input[type="number"]', function (){
         let t_href = event.target;
         console.log(t_href.name);
@@ -14,4 +15,4 @@ window.onload = function (){
         event.preventDefault()
 
     });
-}
+})
