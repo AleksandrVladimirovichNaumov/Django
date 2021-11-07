@@ -69,7 +69,7 @@
                                 </a>
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a href="{% url 'products:detail' product.pk %}">{{ product.name|capfirst }}</a>
+                                        <a href="{% url 'products:detail' product.id %}">{{ product.name|capfirst }}</a>
                                     </h4>
                                     <h5>{{ product.price }}</h5>
                                     <p class="card-text">{{ product.description|truncatechars:30 }}</p>
