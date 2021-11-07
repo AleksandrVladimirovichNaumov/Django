@@ -72,6 +72,7 @@ MIDDLEWARE = [
 
 
 
+
 ]
 
 ROOT_URLCONF = 'geekshop.urls'
