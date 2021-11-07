@@ -95,7 +95,7 @@ class CategoryUpdateView(UpdateView, CustomDispatchMixin):
     template_name = 'admins/admin-categories-update-delete.html'
     # from_class = CategoryAdminUpdateForm
     # context_object_name = 'category'
-    # fields = '__all__'
+    fields = '__all__'
     success_url = reverse_lazy('admins:admins_category')
 
     def get_context_data(self, **kwargs):
