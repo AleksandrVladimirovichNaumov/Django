@@ -93,7 +93,7 @@ class CategoryCreateView(CreateView, CustomDispatchMixin):
 class CategoryUpdateView(UpdateView, CustomDispatchMixin):
     model = ProductCategory
     template_name = 'admins/admin-categories-update-delete.html'
-    # from_class = CategoryAdminUpdateForm
+    from_class = CategoryAdminUpdateForm
     context_object_name = 'category'
     fields = '__all__'
     success_url = reverse_lazy('admins:admins_category')
