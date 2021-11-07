@@ -8,6 +8,7 @@ from geekshop.settings import MEDIA_URL
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.core.cache import cache
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -18,6 +19,18 @@ class ProductsListView(ListView):
     template_name = 'products/products.html'
     # Выводим по три объекта на страницу
     paginate_by = 3
+
+    @staticmethod
+    def get_product(pk):
+        if settings.LOW_CACHE:
+            key = f'product{pk}'
+            product = cache.get(key)
+            if product is None:
+                product = get_object_or_404(Product, pk=pk)
+                cache.set(key, product)
+            return product
+        else:
+            return get_object_or_404(Product, pk=pk)
 
     @staticmethod
     def get_links_category():
@@ -82,6 +95,20 @@ class ProductsIndex(ListView):
     model = Product
     title = 'Каталог'
     template_name = 'products/index.html'
+
+class ProductDetail(ListView):
+    model=Product
+    title = 'Информация о товаре'
+    template_name = 'products/product_detail.html'
+    context_object_name = 'product'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ProductDetail, self).get_context_data()
+        context['product'] = ProductsListView.get_product(self.kwargs.get('pk'))
+        context['categories'] = ProductCategory.objects.all()
+        return context
+
+
 
 #
 #

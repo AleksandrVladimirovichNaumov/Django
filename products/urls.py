@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.urls import path
 
-from .views import  ProductsListView
+from .views import ProductsListView
 
 app_name = 'products'
 urlpatterns = [
@@ -28,5 +28,6 @@ urlpatterns = [
     path('page/<int:page_id>/', ProductsListView.as_view(), name='page'),
     path('category/<int:category_id>/page/<int:page_id>/', ProductsListView.as_view(), name='category_page'),
     path('price/<int:pk>/', ProductsListView.get_price, name='price'),
+    path('detail/<int:pk>/', ProductsListView.as_view(), name='detail'),
 
 ]
