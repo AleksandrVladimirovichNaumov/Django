@@ -47,6 +47,13 @@ class Order(models.Model):
     def get_items(self):
         pass
 
+    def ge_summary(self):
+        items=self.order_item.select_related()
+        return {
+            'get_total_cost': sum(list(map(lambda x: x.get_product_cost()* x.quantity, items))),
+            'get_total_quantity': sum(list(map(lambda x: x.quantity, items)))
+        }
+
     def delete(self, using=None, keep_parents=False):
         for item in self.order_item.select_related():
             item.product.quantity += item.quantity
