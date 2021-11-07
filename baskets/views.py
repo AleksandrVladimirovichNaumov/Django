@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import F
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -21,8 +22,11 @@ def basket_add(request, product_id):
 
     else:
         basket = baskets.first()
-        basket.quantity+=1
+        # basket.quantity+=1
+        basket.quantity = F('quantity') + 1
         basket.save()
+
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
