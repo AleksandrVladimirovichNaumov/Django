@@ -48,7 +48,7 @@ class CategoryAdminUpdateForm(forms.ModelForm):
 
     class Meta:
         model = ProductCategory
-        fields = '__all__'
+        fields = ['name', 'description', 'discount']
 
     def __init__(self, *args, **kwargs):
         super(CategoryAdminUpdateForm, self).__init__(*args, **kwargs)
