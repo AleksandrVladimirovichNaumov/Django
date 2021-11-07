@@ -19,7 +19,7 @@ class BasketQueryset(models.QuerySet):
 
 class Basket(models.Model):
     objects = BasketQueryset.as_manager()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='basket')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
