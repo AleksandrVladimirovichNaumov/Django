@@ -19,7 +19,7 @@ class BasketQueryset(models.QuerySet):
 
 class Basket(models.Model):
     objects = BasketQueryset.as_manager()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='basket')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
@@ -42,13 +42,13 @@ class Basket(models.Model):
     #     return sum(basket.quantity for basket in baskets)
 
     def total_quantity(self):
-        baskets = Basket.objects.filter(user=self.user)
-        # baskets = self.get_cache_item
+        # baskets = Basket.objects.filter(user=self.user)
+        baskets = self.get_cache_item
         return sum(basket.quantity for basket in baskets)
 
     def total_sum(self):
-        baskets = Basket.objects.filter(user=self.user)
-        # baskets = self.get_cache_item
+        # baskets = Basket.objects.filter(user=self.user)
+        baskets = self.get_cache_item
         return sum(basket.sum() for basket in baskets)
 
     # def total_sum_qnty(request):
