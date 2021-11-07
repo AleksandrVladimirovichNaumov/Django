@@ -49,6 +49,7 @@ class CategoryAdminUpdateForm(forms.ModelForm):
     class Meta:
         model = ProductCategory
         # fields = ('name', 'description', 'discount')
+        exclude = ()
 
     def __init__(self, *args, **kwargs):
         super(CategoryAdminUpdateForm, self).__init__(*args, **kwargs)
