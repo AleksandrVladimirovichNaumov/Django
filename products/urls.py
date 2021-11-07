@@ -15,6 +15,7 @@ Including another URLconf
 """
 
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from .views import ProductsListView
 
@@ -28,6 +29,6 @@ urlpatterns = [
     path('page/<int:page_id>/', ProductsListView.as_view(), name='page'),
     path('category/<int:category_id>/page/<int:page_id>/', ProductsListView.as_view(), name='category_page'),
     path('price/<int:pk>/', ProductsListView.get_price, name='price'),
-    path('detail/<int:pk>/', ProductsListView.as_view(), name='detail'),
+    path('detail/<int:pk>/', cache_page(3600)(ProductsListView.as_view()), name='detail'),
 
 ]
