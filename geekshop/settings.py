@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-^zu0@1(r9$3$$r9&be+30khrew#hxrq5qvn&mhptcjjzkk5w7s
 
 DEBUG = True
 
-INTERNAL_IPS = ('127.0.0.1', '192.168.0.116', '10.0.2.2',)
+# INTERNAL_IPS = ('127.0.0.1', '192.168.0.116', '10.0.2.2',)
 
 # для проверки проверки возраста
 # ALLOWED_HOSTS = ['127.0.0.1']
@@ -69,8 +69,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
+    # 'django.middleware.cache.UpdateCacheMiddleware',
 
 ]
 
