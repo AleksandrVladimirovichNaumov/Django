@@ -96,14 +96,14 @@ class ProductsIndex(ListView):
     title = 'Каталог'
     template_name = 'products/index.html'
 
-class ProductDetail(ListView):
+class ProductDetailView(ListView):
     model=Product
     title = 'Информация о товаре'
     template_name = 'products/product_detail.html'
     context_object_name = 'product'
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(ProductDetail, self).get_context_data()
+        context = super(ProductDetailView, self).get_context_data()
         context['product'] = ProductsListView.get_product(self.kwargs.get('pk'))
         context['categories'] = ProductCategory.objects.all()
         return context
