@@ -47,7 +47,7 @@ class Order(models.Model):
     def get_items(self):
         pass
 
-    def ge_summary(self):
+    def get_summary(self):
         items=self.order_item.select_related()
         return {
             'get_total_cost': sum(list(map(lambda x: x.get_product_cost()* x.quantity, items))),
