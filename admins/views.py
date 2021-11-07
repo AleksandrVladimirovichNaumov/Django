@@ -90,7 +90,7 @@ class CategoryCreateView(CreateView, CustomDispatchMixin):
         return context
 
 
-class CategoryUpdateView(UpdateView, CustomDispatchMixin):
+class CategoryUpdateView(UpdateView):
     model = ProductCategory
     template_name = 'admins/admin-categories-update-delete.html'
     from_class = CategoryAdminUpdateForm
