@@ -40,17 +40,17 @@ class TestMainSmokeTest(TestCase):
         self.client = Client()
 
     @try_to_validate
-    def main_page(self):
+    def test_main_page(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, self.status_code_success)
 
     @try_to_validate
-    def is_anonymous(self):
+    def test_is_anonymous(self):
         response = self.client.get('/')
         self.assertTrue(response.context['user'].is_anonymous)
 
     @try_to_validate
-    def is_login(self):
+    def test_is_login(self):
         self.client.login(username=self.username, password=self.password)
         response = self.client.get('/users/login/')
         self.assertEqual(response.status_code, self.status_code_success)
