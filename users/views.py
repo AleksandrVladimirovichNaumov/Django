@@ -109,7 +109,7 @@ class Logout(LogoutView, BaseClassContextMixin):
 #     auth.logout(request)
 #     return HttpResponseRedirect(reverse('index'))
 
-class ProfileFormView(UpdateView, BaseClassContextMixin, LoginRequiredMixin):
+class ProfileFormView(UpdateView, BaseClassContextMixin, LoginRequiredMixin, CustomDispatchMixin):
     model = User
     form_class = UserProfileForm
     template_name = 'users/profile.html'
@@ -118,6 +118,7 @@ class ProfileFormView(UpdateView, BaseClassContextMixin, LoginRequiredMixin):
 
     def get_object(self, queryset=None):
         return get_object_or_404(User, pk=self.request.user.pk)
+
 
     def get_context_data(self, **kwargs):
         context = super(ProfileFormView, self).get_context_data(**kwargs)
