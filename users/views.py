@@ -24,10 +24,10 @@ class LoginLoginView(LoginView, BaseClassContextMixin):
     title = 'Geekshop - Авторизация'
     success_url = reverse_lazy('index')
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(LoginLoginView, self).get_context_data()
-    #     context['title'] = "Авторизация"
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(LoginLoginView, self).get_context_data()
+        context['title'] = "Авторизация"
+        return context
 
 
 # def login(request):
