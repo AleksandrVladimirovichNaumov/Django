@@ -44,20 +44,23 @@ class CategoryAdminCreateForm(forms.ModelForm):
 
 
 class CategoryAdminUpdateForm(forms.ModelForm):
-    discount = forms.IntegerField(widget=forms.NumberInput(), label='скидка', required=False, min_value=0, max_value=90, initial=10)
+    discount = forms.IntegerField(label='скидка', required=False, min_value=0, max_value=90, initial=10)
 
     class Meta:
         model = ProductCategory
-        # fields = ('name', 'description', 'discount')
-        exclude = ()
+
+        fields = '__all__'
+
+        # exclude = ()
 
     def __init__(self, *args, **kwargs):
         super(CategoryAdminUpdateForm, self).__init__(*args, **kwargs)
         self.fields['name'].widget.attrs['placeholder'] = 'name'
         self.fields['description'].widget.attrs['placeholder'] = 'description'
         self.fields['discount'].widget.attrs['placeholder'] = 'discount'
+
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'form-control py-4'
 
 
 class CreateAdminProductForm(forms.ModelForm):
