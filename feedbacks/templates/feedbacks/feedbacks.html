@@ -1,0 +1,18 @@
+<div class="row my-5">
+    <h5>Отзывы</h5>
+    {% if not feedback %}
+        {% for feedback in  %}
+        <div class="row my-5">
+            <div class="card" style="width: 20rem;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ feedback.message }} руб</li>
+
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h5>Отзывов еще нет</h5>
+    {% endif %}
+
+</div>

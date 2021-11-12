@@ -6,7 +6,8 @@
         <div class="container-fluid">
             <h1 class="mt-4">Редактирование продукта | {{product.name}}</h1>
             <div class="card-body">
-                <form action="{% url 'admins:admins_product_update' product.id%}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'admins:admins_product_update' product.id%}" method="post"
+                      enctype="multipart/form-data">
 
                     {% csrf_token%}
                     <div class="form-row">

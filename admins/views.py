@@ -1,4 +1,8 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.db import connection
+from django.db.models import F
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -88,18 +92,35 @@ class CategoryCreateView(CreateView, CustomDispatchMixin):
         return context
 
 
-class CategoryUpdateView(UpdateView, CustomDispatchMixin):
+class CategoryUpdateView(UpdateView):
+
     model = ProductCategory
     template_name = 'admins/admin-categories-update-delete.html'
-    from_class = CategoryAdminUpdateForm
+
     context_object_name = 'category'
-    fields = ('name', 'description')
+    fields = ('name', 'description', 'discount')
     success_url = reverse_lazy('admins:admins_category')
+    from_class = CategoryAdminUpdateForm
+
 
     def get_context_data(self, **kwargs):
-        context = super(CategoryUpdateView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['title'] = 'Панель Админимтратора | Обновление категории'
         return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(final_price=F('price')*(1-discount/100))
+                db_profile_by_type(self.__class__, 'update', connection.queries)
+        return HttpResponseRedirect(self.get_success_url())
+
+
+
+
 
 
 
@@ -167,3 +188,18 @@ class ProductDeleteView(DeleteView, CustomDispatchMixin):
         self.object.is_active = not self.object.is_active
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+def db_profile_by_type(prefix, type, queries):
+   update_queries = list(filter(lambda x: type in x['sql'], queries))
+   print(f'db_profile {type} for {prefix}:')
+   [print(query['sql']) for query in update_queries]
+
+@receiver(pre_save, sender=ProductCategory)
+def product_is_active_update_productcategory_save(sender, instance, **kwargs):
+   if instance.pk:
+       if instance.is_active:
+           instance.product_set.update(is_active=True)
+       else:
+           instance.product_set.update(is_active=False)
+
+       db_profile_by_type(sender, 'UPDATE', connection.queries)

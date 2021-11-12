@@ -14,13 +14,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Basket',
+            name='Feedback',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.PositiveIntegerField(default=0)),
-                ('created_timestamp', models.DateTimeField(auto_now_add=True)),
-                ('update_timestamp', models.DateTimeField(auto_now=True)),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.product')),
+                ('message', models.CharField(max_length=250)),
+                ('created', models.DateTimeField(auto_now_add=True, verbose_name='создан')),
+                ('product_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product', to='products.product')),
             ],
         ),
     ]
