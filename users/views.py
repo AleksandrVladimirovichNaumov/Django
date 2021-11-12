@@ -114,7 +114,7 @@ class Logout(LogoutView, BaseClassContextMixin):
 #     auth.logout(request)
 #     return HttpResponseRedirect(reverse('index'))
 
-class ProfileFormView(UpdateView, BaseClassContextMixin, LoginRequiredMixin, CustomDispatchMixin):
+class ProfileFormView(UpdateView, BaseClassContextMixin, LoginRequiredMixin):
     model = User
     form_class = UserProfileForm
     template_name = 'users/profile.html'
