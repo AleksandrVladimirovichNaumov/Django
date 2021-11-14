@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 
+from feedbacks.models import Feedback
 from products.models import Product, ProductCategory
 from geekshop.settings import MEDIA_URL
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -106,6 +107,7 @@ class ProductDetailView(ListView):
         context = super(ProductDetailView, self).get_context_data()
         context['product'] = ProductsListView.get_product(self.kwargs.get('pk'))
         context['categories'] = ProductCategory.objects.all()
+        context['feedbacks'] = list(Feedback.objects.all())
         return context
 
 

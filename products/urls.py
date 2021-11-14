@@ -29,6 +29,6 @@ urlpatterns = [
     path('page/<int:page_id>/', ProductsListView.as_view(), name='page'),
     path('category/<int:category_id>/page/<int:page_id>/', ProductsListView.as_view(), name='category_page'),
     path('price/<int:pk>/', ProductsListView.get_price, name='price'),
-    path('detail/<int:pk>/', cache_page(3600)(ProductDetailView.as_view()), name='detail'),
-
+    # path('detail/<int:pk>/', cache_page(3600)(ProductDetailView.as_view()), name='detail'),
+    path('detail/<int:pk>/', ProductDetailView.as_view(), name='detail'),
 ]
