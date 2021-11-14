@@ -4,11 +4,11 @@
 <div class="row my-5">
     <h5>Отзывы</h5>
     {% if not feedback %}
-        {% for _feedback in feedbacks %}
+        {% for feedback in feedbacks %}
         <div class="row my-5">
             <div class="card" style="width: 20rem;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{ '_feedback' }} отзыв </li>
+                    <li class="list-group-item">{{ feedback.message }} отзыв </li>
 
                 </ul>
             </div>
