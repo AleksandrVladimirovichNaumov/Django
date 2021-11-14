@@ -107,7 +107,6 @@ class ProductDetailView(ListView):
         context = super(ProductDetailView, self).get_context_data()
         context['product'] = ProductsListView.get_product(self.kwargs.get('pk'))
         context['categories'] = ProductCategory.objects.all()
-        context['feedbacks'] = list(Feedback.objects.all())
         return context
 
 
