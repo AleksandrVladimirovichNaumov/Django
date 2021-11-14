@@ -16,4 +16,4 @@ class FeedbackListView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(FeedbackListView, self).get_context_data()
-        context['feedbacks'] = Feedback.objects.filter(user_id=self.request.user_id_id, product_id=self.request.product_id_id).select_related('user')
+        context['feedbacks'] = Feedback.objects.filter(user_id=self.request.user.id, product_id=self.request.product.id).select_related('user')
