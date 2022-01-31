@@ -76,18 +76,5 @@
       "category": 1,
       "is_active": true
     }
-  },
-  {
-    "model": "products.product",
-    "pk": 25,
-    "fields": {
-      "name": "Шуба",
-      "image": "",
-      "description": "мечта дамы",
-      "price": "10000.02",
-      "quantity": 3,
-      "category": 1,
-      "is_active": false
-    }
   }
 ]
