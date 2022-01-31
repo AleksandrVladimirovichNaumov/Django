@@ -7,7 +7,7 @@
       "image": "product_images/Adidas-hoodie.png",
       "description": "Мягкая ткань для свитшотов. Стиль и комфорт – это образ жизни.",
       "price": "6090.00",
-      "quantity": 13,
+      "quantity": 130,
       "category": 1,
       "is_active": true
     }
@@ -33,7 +33,7 @@
       "image": "product_images/Brown-sports-oversized-top-ASOS-DESIGN.png",
       "description": "Материал с плюшевой текстурой. Удобный и мягкий.",
       "price": "3390.00",
-      "quantity": 0,
+      "quantity": 200,
       "category": 1,
       "is_active": true
     }
@@ -46,7 +46,7 @@
       "image": "product_images/Black-Nike-Heritage-backpack.png",
       "description": "Плотная ткань. Легкий материал.",
       "price": "2340.00",
-      "quantity": 7,
+      "quantity": 700,
       "category": 3,
       "is_active": true
     }
@@ -72,22 +72,10 @@
       "image": "product_images/Dark-blue-wide-leg-ASOs-DESIGN-trousers.png",
       "description": "Легкая эластичная ткань сирсакер Фактурная ткань.",
       "price": "2890.00",
-      "quantity": 1,
+      "quantity": 100,
       "category": 1,
       "is_active": true
     }
-  },
-  {
-    "model": "products.product",
-    "pk": 25,
-    "fields": {
-      "name": "Шуба",
-      "image": "",
-      "description": "мечта дамы",
-      "price": "10000.02",
-      "quantity": 3,
-      "category": 1,
-      "is_active": false
-    }
   }
+
 ]
