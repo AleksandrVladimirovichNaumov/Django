@@ -31,7 +31,7 @@ python manage.py fill_db
 
 
 
-This project is an online-shop. There is a catalog with goods on a main page . Goods can be filtered by categories. Еotal quantity of goods is 3 (proceeed with a paginator).
+This project is an online-shop. There is a catalog with goods on a main page . Goods can be filtered by categories. Total quantity of goods is 3 (proceeed with a paginator).
 Сategories and goods can be added after migrations with a command:
 python manage.py fill_db
 
